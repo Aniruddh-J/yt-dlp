@@ -83,8 +83,8 @@ class HotStarIE(HotStarBaseIE):
     _VALID_URL = r'''(?x)
         https?://(?:www\.)?hotstar\.com(?:/in)?/(?!in/)
         (?:
-            (?P<type>movies|sports|episode|(?P<tv>tv))/
-            (?(tv)(?:[^/?#]+/){2}|[^?#]*)
+            (?P<type>movies|sports|episode|(?P<shows>shows))/
+            (?(shows)(?:[^/?#]+/){2}|[^?#]*)
         )?
         [^/?#]+/
         (?P<id>\d{10})
@@ -104,7 +104,7 @@ class HotStarIE(HotStarBaseIE):
         },
         'params': {'skip_download': 'm3u8'},
     }, {
-        'url': 'https://www.hotstar.com/tv/ek-bhram-sarvagun-sampanna/s-2116/janhvi-targets-suman/1000234847',
+        'url': 'https://www.hotstar.com/shows/ek-bhram-sarvagun-sampanna/s-2116/janhvi-targets-suman/1000234847',
         'info_dict': {
             'id': '1000234847',
             'ext': 'mp4',
@@ -138,7 +138,7 @@ class HotStarIE(HotStarBaseIE):
         'movies': 'movie',
         'sports': 'match',
         'episode': 'episode',
-        'tv': 'episode',
+        'shows': 'episode',
         None: 'content',
     }
 
@@ -304,18 +304,18 @@ class HotStarPrefixIE(InfoExtractor):
 
 class HotStarPlaylistIE(HotStarBaseIE):
     IE_NAME = 'hotstar:playlist'
-    _VALID_URL = r'https?://(?:www\.)?hotstar\.com(?:/in)?/tv(?:/[^/]+){2}/list/[^/]+/t-(?P<id>\w+)'
+    _VALID_URL = r'https?://(?:www\.)?hotstar\.com(?:/in)?shows(?:/[^/]+){2}/list/[^/]+/t-(?P<id>\w+)'
     _TESTS = [{
-        'url': 'https://www.hotstar.com/tv/savdhaan-india/s-26/list/popular-clips/t-3_2_26',
+        'url': 'https://www.hotstar.com/shows/savdhaan-india/s-26/list/popular-clips/t-3_2_26',
         'info_dict': {
             'id': '3_2_26',
         },
         'playlist_mincount': 20,
     }, {
-        'url': 'https://www.hotstar.com/tv/savdhaan-india/s-26/list/extras/t-2480',
+        'url': 'https://www.hotstar.com/shows/savdhaan-india/s-26/list/extras/t-2480',
         'only_matching': True,
     }, {
-        'url': 'https://www.hotstar.com/in/tv/karthika-deepam/15457/list/popular-clips/t-3_2_1272',
+        'url': 'https://www.hotstar.com/in/shows/karthika-deepam/15457/list/popular-clips/t-3_2_1272',
         'only_matching': True,
     }]
 
@@ -327,21 +327,21 @@ class HotStarPlaylistIE(HotStarBaseIE):
 
 class HotStarSeasonIE(HotStarBaseIE):
     IE_NAME = 'hotstar:season'
-    _VALID_URL = r'(?P<url>https?://(?:www\.)?hotstar\.com(?:/in)?/tv/[^/]+/\w+)/seasons/[^/]+/ss-(?P<id>\w+)'
+    _VALID_URL = r'(?P<url>https?://(?:www\.)?hotstar\.com(?:/in)?/shows/[^/]+/\w+)/seasons/[^/]+/ss-(?P<id>\w+)'
     _TESTS = [{
-        'url': 'https://www.hotstar.com/tv/radhakrishn/1260000646/seasons/season-2/ss-8028',
+        'url': 'https://www.hotstar.com/shows/radhakrishn/1260000646/seasons/season-2/ss-8028',
         'info_dict': {
             'id': '8028',
         },
         'playlist_mincount': 35,
     }, {
-        'url': 'https://www.hotstar.com/in/tv/ishqbaaz/9567/seasons/season-2/ss-4357',
+        'url': 'https://www.hotstar.com/in/shows/ishqbaaz/9567/seasons/season-2/ss-4357',
         'info_dict': {
             'id': '4357',
         },
         'playlist_mincount': 30,
     }, {
-        'url': 'https://www.hotstar.com/in/tv/bigg-boss/14714/seasons/season-4/ss-8208/',
+        'url': 'https://www.hotstar.com/in/shows/bigg-boss/14714/seasons/season-4/ss-8208/',
         'info_dict': {
             'id': '8208',
         },
@@ -356,21 +356,21 @@ class HotStarSeasonIE(HotStarBaseIE):
 
 class HotStarSeriesIE(HotStarBaseIE):
     IE_NAME = 'hotstar:series'
-    _VALID_URL = r'(?P<url>https?://(?:www\.)?hotstar\.com(?:/in)?/tv/[^/]+/(?P<id>\d+))/?(?:[#?]|$)'
+    _VALID_URL = r'(?P<url>https?://(?:www\.)?hotstar\.com(?:/in)?/shows/[^/]+/(?P<id>\d+))/?(?:[#?]|$)'
     _TESTS = [{
-        'url': 'https://www.hotstar.com/in/tv/radhakrishn/1260000646',
+        'url': 'https://www.hotstar.com/in/shows/radhakrishn/1260000646',
         'info_dict': {
             'id': '1260000646',
         },
         'playlist_mincount': 690,
     }, {
-        'url': 'https://www.hotstar.com/tv/dancee-/1260050431',
+        'url': 'https://www.hotstar.com/shows/dancee-/1260050431',
         'info_dict': {
             'id': '1260050431',
         },
         'playlist_mincount': 43,
     }, {
-        'url': 'https://www.hotstar.com/in/tv/mahabharat/435/',
+        'url': 'https://www.hotstar.com/in/shows/mahabharat/435/',
         'info_dict': {
             'id': '435',
         },
